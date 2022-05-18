@@ -16,5 +16,15 @@ namespace Client
         {
             InitializeComponent();
         }
+
+        private void btRegister_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btExit_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

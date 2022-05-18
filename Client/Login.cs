@@ -16,5 +16,20 @@ namespace Client
         {
             InitializeComponent();
         }
+
+        private void btLogin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btExit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbShowPassword_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
