@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DoAnMMH
+namespace WindowsFormsApp1
 {
-    public partial class Server : Form
+    public partial class Form1 : Form
     {
-        public Server()
+        public Form1()
         {
             InitializeComponent();
-        }
-
-        private void btn_Open_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
