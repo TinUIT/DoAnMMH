@@ -16,10 +16,17 @@ namespace Client
         {
             InitializeComponent();
         }
+        SocketData login = new SocketData();
+        SocketManager socket = new SocketManager();
 
         private void btLogin_Click(object sender, EventArgs e)
         {
-
+            if (tbPassword != null && tbUserName != null)
+            {
+                login.UserName = tbUserName.Text;
+                login.Password = tbPassword.Text;
+                socket.Send(login);
+            }
         }
 
         private void btExit_Click(object sender, EventArgs e)

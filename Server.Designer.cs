@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Open = new System.Windows.Forms.Button();
+            this.btn_Listen = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.txbIP = new System.Windows.Forms.TextBox();
+            this.tbIP = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // btn_Open
+            // btn_Listen
             // 
-            this.btn_Open.Location = new System.Drawing.Point(476, 64);
-            this.btn_Open.Name = "btn_Open";
-            this.btn_Open.Size = new System.Drawing.Size(108, 49);
-            this.btn_Open.TabIndex = 0;
-            this.btn_Open.Text = "LISTEN";
-            this.btn_Open.UseVisualStyleBackColor = true;
-            this.btn_Open.Click += new System.EventHandler(this.btn_Open_Click);
+            this.btn_Listen.Location = new System.Drawing.Point(476, 64);
+            this.btn_Listen.Name = "btn_Listen";
+            this.btn_Listen.Size = new System.Drawing.Size(108, 49);
+            this.btn_Listen.TabIndex = 0;
+            this.btn_Listen.Text = "LISTEN";
+            this.btn_Listen.UseVisualStyleBackColor = true;
+            this.btn_Listen.Click += new System.EventHandler(this.btn_Listen_Click);
             // 
             // label1
             // 
@@ -52,22 +52,22 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "IP";
             // 
-            // txbIP
+            // tbIP
             // 
-            this.txbIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbIP.Location = new System.Drawing.Point(156, 65);
-            this.txbIP.Name = "txbIP";
-            this.txbIP.Size = new System.Drawing.Size(242, 39);
-            this.txbIP.TabIndex = 2;
+            this.tbIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbIP.Location = new System.Drawing.Point(156, 65);
+            this.tbIP.Name = "tbIP";
+            this.tbIP.Size = new System.Drawing.Size(242, 39);
+            this.tbIP.TabIndex = 2;
             // 
             // Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(653, 161);
-            this.Controls.Add(this.txbIP);
+            this.Controls.Add(this.tbIP);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btn_Open);
+            this.Controls.Add(this.btn_Listen);
             this.Name = "Server";
             this.Text = "Server";
             this.Shown += new System.EventHandler(this.Server_Shown);
@@ -78,9 +78,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btn_Open;
+        private System.Windows.Forms.Button btn_Listen;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txbIP;
+        private System.Windows.Forms.TextBox tbIP;
     }
 }
 
