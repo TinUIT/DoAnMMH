@@ -23,6 +23,8 @@ namespace DoAnMMH
             InitializeComponent();
 
             CheckForIllegalCrossThreadCalls = false;
+
+            Connect();
         }
 
         IPEndPoint IP;
@@ -32,7 +34,7 @@ namespace DoAnMMH
         void Connect()
         {
             clientList = new List<Socket>();
-            // Địa chỉ Server
+            
             IP = new IPEndPoint(IPAddress.Any, 9999);
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -43,7 +45,7 @@ namespace DoAnMMH
                 {
                     while (true)
                     {
-                        server.Listen(1000);
+                        server.Listen(100);
                         Socket client = server.Accept();
                         clientList.Add(client);
 
@@ -70,10 +72,11 @@ namespace DoAnMMH
             while (true)
             {
                 try
-                {
-                    byte[] data = new byte[1024 * 500];
-                    client.Receive(data);
-
+                { 
+                        byte[] data = new byte[1073741824];
+                        client.Receive(data);
+                        SocketData login = (SocketData)Deserialize(data);
+                        MessageBox.Show(login.getUsername());
                 }
                 catch
                 {
@@ -131,9 +134,9 @@ namespace DoAnMMH
             }
         }
 
-        private void btn_Listen_Click(object sender, EventArgs e)
+        private void Server_Load(object sender, EventArgs e)
         {
-            Connect();
+
         }
     }
 }

@@ -77,6 +77,7 @@
             this.Controls.Add(this.IP);
             this.Name = "Connect";
             this.Text = "Connect";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Connect_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

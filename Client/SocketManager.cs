@@ -12,16 +12,24 @@ namespace Client
 {
     internal class SocketManager
     {
-        Socket client;
-        public string IP = "127.0.0.1";
-        public int PORT = 9999;
+        Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        public static string sIP = "127.0.0.1";
+        public  int PORT = 9999;
         public const int BUFFER = 1024;
+        
+        public void setIP(string IP)
+        {
+           sIP = IP;
+        }
 
+        public string getIP()
+        {
+            return sIP;
+        }
         public bool ConnectServer()
         {
-            IPEndPoint iep = new IPEndPoint(IPAddress.Parse(IP), PORT);
-            client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
+            IPEndPoint iep = new IPEndPoint(IPAddress.Parse(sIP), PORT);
+           
             try
             {
                 client.Connect(iep);
@@ -33,33 +41,22 @@ namespace Client
             }
         }
 
-        public bool Send(object data)
+        public void Send(object data)
         {
             byte[] sendData = SerializeData(data);
 
-            return SendData(client, sendData);
+            client.Send(sendData);
         }
 
         public object Receive()
         {
-            byte[] receiveData = new byte[BUFFER];
-            bool isOk = ReceiveData(client, receiveData);
+            byte[] receiveData = new byte[BUFFER*5000];
+            client.Receive(receiveData);
 
             return DeserializeData(receiveData);
         }
 
-        private bool SendData(Socket target, byte[] data)
-        {
-            return target.Send(data) == 1 ? true : false;
-        }
-
-
-        private bool ReceiveData(Socket target, byte[] data)
-        {
-            return target.Receive(data) == 1 ? true : false;
-        }
-
-        public byte[] SerializeData(Object o)
+        public byte[] SerializeData(object o)
         {
             MemoryStream ms = new MemoryStream();
             BinaryFormatter bf1 = new BinaryFormatter();
@@ -73,6 +70,11 @@ namespace Client
             BinaryFormatter bf1 = new BinaryFormatter();
             ms.Position = 0;
             return bf1.Deserialize(ms);
+        }
+
+        public void Close()
+        {
+            client.Close();
         }
     }
 }

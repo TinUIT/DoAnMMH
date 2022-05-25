@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,17 +16,16 @@ namespace Client
         public Login()
         {
             InitializeComponent();
+
         }
-        SocketData login = new SocketData();
         SocketManager socket = new SocketManager();
 
         private void btLogin_Click(object sender, EventArgs e)
         {
-            if (tbPassword != null && tbUserName != null)
+            if (tbPassword.Text != null && tbUserName.Text != null)
             {
-                login.UserName = tbUserName.Text;
-                login.Password = tbPassword.Text;
-                socket.Send(login);
+                socket.ConnectServer();
+                socket.Send(new SocketData(tbPassword.Text, tbUserName.Text));
             }
         }
 
@@ -38,5 +38,15 @@ namespace Client
         {
 
         }
+
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        private void Login_Shown(object sender, EventArgs e)
+        {
+
+;       }
     }
 }

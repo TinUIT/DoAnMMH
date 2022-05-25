@@ -25,16 +25,29 @@ namespace Client
             try
             {
                 socket = new SocketManager();
-                socket.IP = tbIP.Text;
-                socket.ConnectServer();
+                socket.setIP(tbIP.Text);
+                if (socket.ConnectServer())
+                {
+                    this.Hide();
+                    socket.Close();
+                    Login login = new Login();
+                    login.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Không connect", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("Vui lòng nhập IP");
+                MessageBox.Show(ex.ToString());
             }
-            if(socket.ConnectServer())
-                MessageBox.Show("Đã kết nối", "Thông báo", MessageBoxButtons.OKCancel);
+
         }
 
+        private void Connect_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
     }
 }

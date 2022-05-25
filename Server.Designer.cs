@@ -28,20 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Listen = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tbIP = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // btn_Listen
-            // 
-            this.btn_Listen.Location = new System.Drawing.Point(476, 64);
-            this.btn_Listen.Name = "btn_Listen";
-            this.btn_Listen.Size = new System.Drawing.Size(108, 49);
-            this.btn_Listen.TabIndex = 0;
-            this.btn_Listen.Text = "LISTEN";
-            this.btn_Listen.UseVisualStyleBackColor = true;
-            this.btn_Listen.Click += new System.EventHandler(this.btn_Listen_Click);
             // 
             // label1
             // 
@@ -67,9 +56,9 @@
             this.ClientSize = new System.Drawing.Size(653, 161);
             this.Controls.Add(this.tbIP);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btn_Listen);
             this.Name = "Server";
             this.Text = "Server";
+            this.Load += new System.EventHandler(this.Server_Load);
             this.Shown += new System.EventHandler(this.Server_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -77,8 +66,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn_Listen;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbIP;
     }
