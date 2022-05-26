@@ -40,6 +40,7 @@
             this.tbIP.Name = "tbIP";
             this.tbIP.Size = new System.Drawing.Size(255, 26);
             this.tbIP.TabIndex = 13;
+            this.tbIP.TextChanged += new System.EventHandler(this.tbIP_TextChanged);
             // 
             // IP
             // 

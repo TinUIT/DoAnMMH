@@ -16,26 +16,29 @@ namespace Client
         public Connect()
         {
             InitializeComponent();
+
+            CheckForIllegalCrossThreadCalls = false;
         }
 
-        SocketManager socket;
+        SocketManager socket = new SocketManager();
 
         private void btConnect_Click(object sender, EventArgs e)
         {
             try
             {
-                socket = new SocketManager();
-                socket.setIP(tbIP.Text);
-                if (socket.ConnectServer())
+                if(tbIP.Text != null )
                 {
-                    this.Hide();
-                    socket.Close();
-                    Login login = new Login();
-                    login.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Không connect", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    socket.setIP(tbIP.Text);
+                    if (socket.ConnectServer())
+                    {
+                        Login login = new Login();
+                        this.Hide();
+                        login.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không connect", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             catch(Exception ex)
@@ -48,6 +51,11 @@ namespace Client
         private void Connect_FormClosing(object sender, FormClosingEventArgs e)
         {
             
+        }
+
+        private void tbIP_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

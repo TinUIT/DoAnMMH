@@ -17,6 +17,8 @@ namespace Client
         {
             InitializeComponent();
 
+            CheckForIllegalCrossThreadCalls = false;
+
         }
         SocketManager socket = new SocketManager();
 
@@ -25,7 +27,7 @@ namespace Client
             if (tbPassword.Text != null && tbUserName.Text != null)
             {
                 socket.ConnectServer();
-                socket.Send(new SocketData(tbPassword.Text, tbUserName.Text));
+                socket.Send(tbUserName.Text + "--" + tbPassword.Text);
             }
         }
 

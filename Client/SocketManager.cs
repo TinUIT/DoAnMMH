@@ -68,7 +68,8 @@ namespace Client
         {
             MemoryStream ms = new MemoryStream(theByteArray);
             BinaryFormatter bf1 = new BinaryFormatter();
-            ms.Position = 0;
+            //ms.Position = 0;
+            //ms.Seek(0, SeekOrigin.Begin);
             return bf1.Deserialize(ms);
         }
 

@@ -37,15 +37,14 @@ namespace DoAnMMH
             
             IP = new IPEndPoint(IPAddress.Any, 9999);
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
             server.Bind(IP);
+            server.Listen(100);
             Thread Listen = new Thread(() =>
             {
                 try
                 {
                     while (true)
-                    {
-                        server.Listen(100);
+                    {                       
                         Socket client = server.Accept();
                         clientList.Add(client);
 
@@ -56,6 +55,7 @@ namespace DoAnMMH
                 }
                 catch
                 {
+                    //MessageBox.Show("loi connect");
                     IP = new IPEndPoint(IPAddress.Any, 9999);
                     server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 }
@@ -68,25 +68,29 @@ namespace DoAnMMH
 
         void Receive(Object obj)
         {
-            Socket client = (Socket)obj;
+            Socket client = (Socket)obj; 
+  
             while (true)
             {
                 try
                 { 
-                        byte[] data = new byte[1073741824];
-                        client.Receive(data);
-                        SocketData login = (SocketData)Deserialize(data);
-                        MessageBox.Show(login.getUsername());
+                     byte[] data = new byte[1024];
+                     client.Receive(data);
+                     string receive = (string)Deserialize(data);
+                     string[] arrListStr = receive.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
+                    SocketData login = new SocketData(arrListStr[0], arrListStr[1]);
+                    MessageBox.Show(login.getUsername());
                 }
-                catch
+                catch(Exception ex)
                 {
                     clientList.Remove(client);
                     client.Close();
+                    //MessageBox.Show(ex.ToString());
                 }
             }
         }
 
-        byte[] Serialize(Object obj)
+        byte[] Serialize(SocketData obj)
         {
             MemoryStream ms = new MemoryStream();
             BinaryFormatter bf = new BinaryFormatter();
@@ -100,7 +104,7 @@ namespace DoAnMMH
         {
             MemoryStream ms = new MemoryStream(data);
             BinaryFormatter bf = new BinaryFormatter();
-
+            //ms.Seek(0, SeekOrigin.Begin);
             return bf.Deserialize(ms);
 
         }
