@@ -22,5 +22,10 @@ namespace DoAnMMH
         {
             return UserName;
         }
+
+        public string getPassword()
+        {
+            return Password;
+        }
     }
 }

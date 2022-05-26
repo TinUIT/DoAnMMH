@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DoAnMMH
@@ -79,7 +73,7 @@ namespace DoAnMMH
                      string receive = (string)Deserialize(data);
                      string[] arrListStr = receive.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
                     SocketData login = new SocketData(arrListStr[0], arrListStr[1]);
-                    MessageBox.Show(login.getUsername());
+                    MessageBox.Show(login.getPassword());
                 }
                 catch(Exception ex)
                 {
