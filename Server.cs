@@ -183,7 +183,7 @@ namespace DoAnMMH
             string name = UserName;  //login.getUsername();
             string pass = Password; //login.getPassword();
 
-            string sql = "Select * from tbUser where Name = '" + name + "' and Password = '" + pass + "'";
+            string sql = "Select * from Account where Name = '" + name + "' and Password = '" + pass + "'";
             connect.Open();
             SqlCommand cmd = new SqlCommand(sql, connect);
             SqlDataReader reader = cmd.ExecuteReader();
@@ -196,6 +196,35 @@ namespace DoAnMMH
             {
                 return false;
             }
+        }
+        // Hàm kiểm tra việc đăng ký tài khoản được hay không
+        public bool CheckRegister(string UserName, string Password)
+        {
+            //Nếu đăng ký thành công thì sẽ return true
+            try
+            {
+                SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Application.StartupPath + @"\Database_Account.mdf;Integrated Security=True");
+
+
+                string name = UserName;
+                string pass = Password;
+
+                string sql = "Insert into Account values ('" + name + "', '" + pass + "', 0, 0)";
+
+
+                SqlCommand cmd = new SqlCommand(sql, connect);
+                connect.Open();
+                cmd.ExecuteNonQuery();
+                connect.Close();
+                cmd.Dispose();
+                return true;
+            }
+            //Có lỗi xãy ra thì return false
+            catch(Exception)
+            {
+                return false;
+            }     
+            
         }
     }
 
