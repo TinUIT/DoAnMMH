@@ -7,11 +7,18 @@ using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace DoAnMMH
 {
     public partial class Server : Form
     {
+        //Khai báo các biến toàn cục
+        SqlConnection con;//Khai báo đối tượng thực hiện kết nối đến cơ sở dữ liệu
+        SqlCommand cmd;//Khai báo đối tượng thực hiện các câu lệnh truy vấn
+        SqlDataAdapter dap;//Khai báo đối tượng gắn kết DataSource với DataSet
+        DataSet ds;//Đối tượng chứa dữ liệu tại local
         public Server()
         {
             InitializeComponent();
@@ -67,19 +74,22 @@ namespace DoAnMMH
             while (true)
             {
                 try
-                { 
-                     byte[] data = new byte[1024];
-                     client.Receive(data);
-                     string receive = (string)Deserialize(data);
-                     string[] arrListStr = receive.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
+                {
+                    byte[] data = new byte[1024];
+                    client.Receive(data);
+                    string receive = (string)Deserialize(data);
+                    string[] arrListStr = receive.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
                     SocketData login = new SocketData(arrListStr[0], arrListStr[1]);
                     MessageBox.Show(login.getPassword());
+
+                    
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     clientList.Remove(client);
                     client.Close();
                     //MessageBox.Show(ex.ToString());
+
                 }
             }
         }
@@ -134,7 +144,59 @@ namespace DoAnMMH
 
         private void Server_Load(object sender, EventArgs e)
         {
+            Database();
+        }
 
+
+
+
+
+        // 2 này show trên server để biết là có những tài khoản nào có sẳn trên server
+        public void Database()
+        {
+            //Tạo đối tượng Connection
+            con = new SqlConnection();
+            //Truyền vào chuỗi kết nối tới cơ sở dữ liệu
+            //Gọi Application.StartupPath để lấy đường dẫn tới thư mục chứa file chạy chương trình 
+            con.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Application.StartupPath + @"\Database_Account.mdf;Integrated Security=True";
+            //Gọi phương thức Load dự liệu
+            LoadDuLieu("Select * from Account");
+        }
+        private void LoadDuLieu(String sql)
+        {
+            //tạo đối tượng DataSet
+            ds = new DataSet();
+            //Khởi tạo đối tượng DataAdapter và cung cấp vào câu lệnh SQL và đối tượng Connection
+            dap = new SqlDataAdapter(sql, con);
+            //Dùng phương thức Fill của DataAdapter để đổ dữ liệu từ DataSource tới DataSet
+            dap.Fill(ds);
+            //Gắn dữ liệu từ DataSet lên DataGridView
+            dgvServer.DataSource = ds.Tables[0];
+        }
+
+        //Hàm kiểm tra xem thông tin client đăng nhập đúng hay không
+        public bool CheckLogin(string UserName, string Password)
+        {
+            SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Application.StartupPath + @"\Database_Account.mdf;Integrated Security=True");
+
+
+            string name = UserName;  //login.getUsername();
+            string pass = Password; //login.getPassword();
+
+            string sql = "Select * from tbUser where Name = '" + name + "' and Password = '" + pass + "'";
+            connect.Open();
+            SqlCommand cmd = new SqlCommand(sql, connect);
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read() == true)
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
         }
     }
+
 }
