@@ -89,6 +89,11 @@ namespace DoAnMMH
                             MessageBox.Show("Đã kết nối dtb");
                             client.Send(Serialize("Đã đăng nhập thành công"));
                         }
+                        else
+                        {
+                            MessageBox.Show("Kết nối dtb thất bại");
+                            client.Send(Serialize("Đăng nhập thất bại"));
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -165,9 +170,9 @@ namespace DoAnMMH
             con = new SqlConnection();
             //Truyền vào chuỗi kết nối tới cơ sở dữ liệu
             //Gọi Application.StartupPath để lấy đường dẫn tới thư mục chứa file chạy chương trình 
-            con.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+Application.StartupPath+@"\Account.mdf;Integrated Security=True";
+            con.ConnectionString = @"Data Source=DESKTOP-A25UG0C;Initial Catalog=User;Integrated Security=True";
             //Gọi phương thức Load dự liệu
-            LoadDuLieu("Select * from tbUser");
+            LoadDuLieu("Select * from Account");
         }
         private void LoadDuLieu(String sql)
         {
@@ -184,13 +189,13 @@ namespace DoAnMMH
         //Hàm kiểm tra xem thông tin client đăng nhập đúng hay không
         public bool CheckLogin(string UserName, string Password)
         {
-            SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Application.StartupPath + @"\Account.mdf;Integrated Security=True");
+            SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-A25UG0C;Initial Catalog=User;Integrated Security=True");
 
 
             string name = UserName;  //login.getUsername();
             string pass = Password; //login.getPassword();
 
-            string sql = "Select * from tbUser where Name = '" + name + "' and Password = '" + pass + "'";
+            string sql = "Select * from Account where Name = '" + name + "' and Password = '" + pass + "'";
             connect.Open();
             SqlCommand cmd = new SqlCommand(sql, connect);
             SqlDataReader reader = cmd.ExecuteReader();
@@ -210,13 +215,13 @@ namespace DoAnMMH
             //Nếu đăng ký thành công thì sẽ return true
             try
             {
-                SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Application.StartupPath + @"\Account.mdf;Integrated Security=True");
+                SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-A25UG0C;Initial Catalog=User;Integrated Security=True");
 
 
                 string name = UserName;
                 string pass = Password;
 
-                string sql = "Insert into tbUser values ('" + name + "', '" + pass + "', 0, 0)";
+                string sql = "Insert into Account values ('" + name + "', '" + pass + "', 0, 0)";
 
 
                 SqlCommand cmd = new SqlCommand(sql, connect);
