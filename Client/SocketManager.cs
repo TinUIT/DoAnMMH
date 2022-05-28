@@ -50,7 +50,7 @@ namespace Client
 
         public object Receive()
         {
-            byte[] receiveData = new byte[BUFFER*5000];
+            byte[] receiveData = new byte[BUFFER*50];
             client.Receive(receiveData);
 
             return DeserializeData(receiveData);

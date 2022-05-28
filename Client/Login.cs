@@ -49,7 +49,8 @@ namespace Client
             if (tbPassword.Text != null && tbUserName.Text != null)
             {
                 socket.ConnectServer();
-                socket.Send(tbUserName.Text + "--" + SHA256(tbPassword.Text));
+                socket.Send(tbUserName.Text + "--" + SHA256(tbPassword.Text) + "--login");
+                MessageBox.Show((string)socket.Receive());
             }
         }
 
@@ -65,7 +66,7 @@ namespace Client
 
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            socket.Close();
         }
 
         private void Login_Shown(object sender, EventArgs e)

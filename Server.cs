@@ -80,9 +80,16 @@ namespace DoAnMMH
                     string receive = (string)Deserialize(data);
                     string[] arrListStr = receive.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
                     SocketData login = new SocketData(arrListStr[0], arrListStr[1]);
-                    MessageBox.Show(login.getPassword());
+                    //MessageBox.Show(login.getPassword());
 
-                    
+                    if(String.Compare(arrListStr[2], "login", true) == 0)
+                    {
+                        if (CheckLogin(login.getUsername(),login.getPassword()))
+                        {
+                            MessageBox.Show("Đã kết nối dtb");
+                            client.Send(Serialize("Đã đăng nhập thành công"));
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -94,7 +101,7 @@ namespace DoAnMMH
             }
         }
 
-        byte[] Serialize(SocketData obj)
+        byte[] Serialize(object obj)
         {
             MemoryStream ms = new MemoryStream();
             BinaryFormatter bf = new BinaryFormatter();

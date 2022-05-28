@@ -33,7 +33,9 @@ namespace Client
                     {
                         Login login = new Login();
                         this.Hide();
+                        socket.Close();
                         login.ShowDialog();
+                        this.Close();
                     }
                     else
                     {
