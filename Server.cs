@@ -158,7 +158,7 @@ namespace DoAnMMH
             con = new SqlConnection();
             //Truyền vào chuỗi kết nối tới cơ sở dữ liệu
             //Gọi Application.StartupPath để lấy đường dẫn tới thư mục chứa file chạy chương trình 
-            con.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\Source\Repos\DoAnMMH28\5\Account.mdf;Integrated Security=True";
+            con.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+Application.StartupPath+@"\Account.mdf;Integrated Security=True";
             //Gọi phương thức Load dự liệu
             LoadDuLieu("Select * from tbUser");
         }
@@ -177,7 +177,7 @@ namespace DoAnMMH
         //Hàm kiểm tra xem thông tin client đăng nhập đúng hay không
         public bool CheckLogin(string UserName, string Password)
         {
-            SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\Source\Repos\DoAnMMH28\5\Account.mdf;Integrated Security=True");
+            SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Application.StartupPath + @"\Account.mdf;Integrated Security=True");
 
 
             string name = UserName;  //login.getUsername();
@@ -203,7 +203,7 @@ namespace DoAnMMH
             //Nếu đăng ký thành công thì sẽ return true
             try
             {
-                SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\Source\Repos\DoAnMMH28\5\Account.mdf;Integrated Security=True");
+                SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Application.StartupPath + @"\Account.mdf;Integrated Security=True");
 
 
                 string name = UserName;
