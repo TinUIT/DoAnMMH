@@ -89,6 +89,10 @@ namespace DoAnMMH
                             MessageBox.Show("Đã kết nối dtb");
                             client.Send(Serialize("Đã đăng nhập thành công"));
                         }
+                        else
+                        {
+                            client.Send(Serialize("Vui lòng thử lại"));
+                        }
                     }
                 }
                 catch (Exception ex)
