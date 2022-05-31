@@ -91,7 +91,8 @@ namespace DoAnMMH
                         }
                         else
                         {
-                            
+                            MessageBox.Show("Kết nối dtb thất bại");
+                            client.Send(Serialize("Đăng nhập thất bại"));
                         }
                     }
                 }
