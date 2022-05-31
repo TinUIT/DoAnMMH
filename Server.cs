@@ -91,7 +91,7 @@ namespace DoAnMMH
                         }
                         else
                         {
-                            client.Send(Serialize("Vui lòng thử lại"));
+                            
                         }
                     }
                 }
