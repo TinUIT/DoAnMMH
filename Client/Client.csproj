@@ -58,6 +58,7 @@
     <Compile Include="Connect.Designer.cs">
       <DependentUpon>Connect.cs</DependentUpon>
     </Compile>
+    <Compile Include="Crypto.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
