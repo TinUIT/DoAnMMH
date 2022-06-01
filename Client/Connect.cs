@@ -21,7 +21,7 @@ namespace Client
         }
 
         SocketManager socket = new SocketManager();
-
+        //
         private void btConnect_Click(object sender, EventArgs e)
         {
             try
