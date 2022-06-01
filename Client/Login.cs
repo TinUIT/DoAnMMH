@@ -67,12 +67,19 @@ namespace Client
 
         private void btExit_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void cbShowPassword_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (cbShowPassword.Checked == true)
+            {
+                tbPassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                tbPassword.UseSystemPasswordChar = true;
+            }
         }
 
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
