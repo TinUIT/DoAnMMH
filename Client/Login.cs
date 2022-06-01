@@ -51,7 +51,7 @@ namespace Client
                 socket.ConnectServer();
                 socket.Send(tbUserName.Text + "-.-" + SHA256(tbPassword.Text) + "-.-login");
                 string response = (string)socket.Receive();
-                
+                //
                 if(response=="Đã đăng nhập thành công")
                 {
                     this.Hide();
