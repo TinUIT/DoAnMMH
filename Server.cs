@@ -78,7 +78,7 @@ namespace DoAnMMH
                     byte[] data = new byte[1024];
                     client.Receive(data);
                     string receive = (string)Deserialize(data);
-                    string[] arrListStr = receive.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] arrListStr = receive.Split(new string[] { "-.-" }, StringSplitOptions.RemoveEmptyEntries);
                     SocketData login = new SocketData(arrListStr[0], arrListStr[1]);
                     //MessageBox.Show(login.getPassword());
 

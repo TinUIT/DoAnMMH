@@ -49,7 +49,7 @@ namespace Client
             if (tbPassword.Text != null && tbUserName.Text != null)
             {
                 socket.ConnectServer();
-                socket.Send(tbUserName.Text + "--" + SHA256(tbPassword.Text) + "--login");
+                socket.Send(tbUserName.Text + "-.-" + SHA256(tbPassword.Text) + "-.-login");
                 string response = (string)socket.Receive();
                 
                 if(response=="Đã đăng nhập thành công")
