@@ -50,13 +50,14 @@ namespace Client
             {
                 socket.ConnectServer();
                 socket.Send(tbUserName.Text + "--" + SHA256(tbPassword.Text) + "--login");
-                MessageBox.Show((string)socket.Receive());
-                //if(socket.Receive().ToString()=="Đã đăng nhập thành công")
-                //{
+                string response = (string)socket.Receive();
+                MessageBox.Show(response);
+                if(response=="Đã đăng nhập thành công")
+                {
                     this.Hide();
                     ChatApp chatApp = new ChatApp();
                     chatApp.ShowDialog();
-               // }    
+                }    
             }
         }
 
