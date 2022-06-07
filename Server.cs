@@ -170,7 +170,7 @@ namespace DoAnMMH
             con = new SqlConnection();
             //Truyền vào chuỗi kết nối tới cơ sở dữ liệu
             //Gọi Application.StartupPath để lấy đường dẫn tới thư mục chứa file chạy chương trình 
-            con.ConnectionString = @"Data Source=DESKTOP-A25UG0C;Initial Catalog=User;Integrated Security=True";
+            con.ConnectionString = @"Data Source=DESKTOP-QPN0QKO\SQLEXPRESS;Initial Catalog=master;Integrated Security=True";
             //Gọi phương thức Load dự liệu
             LoadDuLieu("Select * from Account");
         }
@@ -189,7 +189,7 @@ namespace DoAnMMH
         //Hàm kiểm tra xem thông tin client đăng nhập đúng hay không
         public bool CheckLogin(string UserName, string Password)
         {
-            SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-A25UG0C;Initial Catalog=User;Integrated Security=True");
+            SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-QPN0QKO\SQLEXPRESS;Initial Catalog=User;Integrated Security=True");
 
 
             string name = UserName;  //login.getUsername();
