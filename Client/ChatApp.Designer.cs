@@ -62,6 +62,7 @@
             this.btnSend.TabIndex = 6;
             this.btnSend.Text = "SEND";
             this.btnSend.UseVisualStyleBackColor = false;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // ChatApp
             // 

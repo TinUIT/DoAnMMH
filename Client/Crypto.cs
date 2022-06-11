@@ -69,47 +69,45 @@ namespace Client
         #endregion
 
         #region RSA
-        public byte[] Encryption(byte[] Data, RSAParameters RSAKey, bool DoOAEPPadding)
+        public BigInteger q = new BigInteger();
+        public BigInteger p = new BigInteger();
+        public BigInteger n = new BigInteger();
+        public BigInteger omegan = new BigInteger();
+        public BigInteger ex = new BigInteger();
+        public BigInteger d = new BigInteger();
+        public int[] c = new int[1000000];
+        BigInteger[] cc = new BigInteger[10000000];
+        BigInteger[] mm = new BigInteger[10000000];
+        long qt, pt;
+        int bit;
+
+        public void RandomKey()
         {
-            try
+            Random rand = new Random();
+            //Random 2 Số nguyên tố rất lớn q và p
+            do
             {
-                byte[] encryptedData;
-                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-                {
-                    RSA.ImportParameters(RSAKey);
-                    encryptedData = RSA.Encrypt(Data, DoOAEPPadding);
-                }
-                return encryptedData;
-            }
-            catch (CryptographicException e)
-            {
-                Console.WriteLine(e.Message);
+                q = BigInteger.genPseudoPrime(bit, 2, rand);
+                p = BigInteger.genPseudoPrime(bit, 2, rand);
 
-                return null;
-            }
-
+            } while (q == p);
+            calculate();
         }
 
-         public string Decryption(byte[] Data, RSAParameters RSAKey, bool DoOAEPPadding)
+        public void calculate()
         {
-            try
+            n = q * p;
+            omegan = (q - 1) * (p - 1);
+            int b = n.bitCount();
+            Random rand = new Random();
+            //Tìm e (public Key)
+            do
             {
-                byte[] decryptedData;
-                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-                {
-                    RSA.ImportParameters(RSAKey);
-                    decryptedData = RSA.Decrypt(Data, DoOAEPPadding);
-                }
-                return byteToString(decryptedData);
-            }
-            catch (CryptographicException e)
-            {
-                Console.WriteLine(e.ToString());
-
-                return null;
-            }
-
+                ex = omegan.genCoPrime(b, rand);
+            } while (ex.isProbablePrime() == false || ex.gcd(omegan) != 1 || ex >= omegan);
         }
+
+
         #endregion
 
         #region Hash SHA256
