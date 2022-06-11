@@ -107,7 +107,7 @@ namespace Client
             } while (ex.isProbablePrime() == false || ex.gcd(omegan) != 1 || ex >= omegan);
         }
 
-        //
+        
         #endregion
 
         #region Hash SHA256
