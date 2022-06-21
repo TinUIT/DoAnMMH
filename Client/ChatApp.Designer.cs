@@ -31,48 +31,61 @@
             this.lvMessage = new System.Windows.Forms.ListBox();
             this.tbMessage = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
+            this.btName = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lvMessage
             // 
             this.lvMessage.FormattingEnabled = true;
-            this.lvMessage.ItemHeight = 20;
-            this.lvMessage.Location = new System.Drawing.Point(57, 35);
+            this.lvMessage.ItemHeight = 16;
+            this.lvMessage.Location = new System.Drawing.Point(46, 93);
             this.lvMessage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lvMessage.Name = "lvMessage";
-            this.lvMessage.Size = new System.Drawing.Size(657, 324);
+            this.lvMessage.Size = new System.Drawing.Size(584, 260);
             this.lvMessage.TabIndex = 4;
             // 
             // tbMessage
             // 
-            this.tbMessage.Location = new System.Drawing.Point(57, 394);
+            this.tbMessage.Location = new System.Drawing.Point(46, 380);
             this.tbMessage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbMessage.Name = "tbMessage";
-            this.tbMessage.Size = new System.Drawing.Size(540, 26);
+            this.tbMessage.Size = new System.Drawing.Size(480, 22);
             this.tbMessage.TabIndex = 5;
             // 
             // btnSend
             // 
             this.btnSend.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSend.Location = new System.Drawing.Point(624, 385);
+            this.btnSend.Location = new System.Drawing.Point(550, 373);
             this.btnSend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(90, 45);
+            this.btnSend.Size = new System.Drawing.Size(80, 36);
             this.btnSend.TabIndex = 6;
             this.btnSend.Text = "SEND";
             this.btnSend.UseVisualStyleBackColor = false;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
+            // btName
+            // 
+            this.btName.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btName.Location = new System.Drawing.Point(46, 44);
+            this.btName.Name = "btName";
+            this.btName.Size = new System.Drawing.Size(194, 33);
+            this.btName.TabIndex = 7;
+            this.btName.Text = "User: ";
+            this.btName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btName.UseVisualStyleBackColor = false;
+            // 
             // ChatApp
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(757, 460);
+            this.ClientSize = new System.Drawing.Size(673, 421);
+            this.Controls.Add(this.btName);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.tbMessage);
             this.Controls.Add(this.lvMessage);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ChatApp";
             this.Text = "ChatApp";
             this.ResumeLayout(false);
@@ -84,5 +97,6 @@
         private System.Windows.Forms.ListBox lvMessage;
         private System.Windows.Forms.TextBox tbMessage;
         private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.Button btName;
     }
 }

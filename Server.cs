@@ -107,7 +107,7 @@ namespace DoAnMMH
                             foreach (var item in clientList)
                             {
                                 if (item != null && item != client)
-                                    item.Send(Serialize(arrListStr[1]));
+                                    item.Send(Serialize(arrListStr[0] + arrListStr[1]));
                             }
                             break;
                     }

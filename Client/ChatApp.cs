@@ -10,17 +10,20 @@ namespace Client
 {
     public partial class ChatApp : Form
     {
+        string tbname;
+
         public ChatApp(SocketManager socketManager, string name)
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             client = socketManager;
+            btName.Text += name;
             tbname = name;
             Thread thread = new Thread(Receive);
             thread.IsBackground = true;
             thread.Start();
         }
-        string tbname;
+
         public void Receive()
         {
             try
@@ -28,7 +31,8 @@ namespace Client
                 while (true)
                 {
                     string r = (string)client.Receive();
-                    AddMessage(r);
+                    lvMessage.Items.Add("\t\t\t" + r);
+                    tbMessage.Clear();
                 }
             }
             catch (Exception ex)
@@ -39,25 +43,19 @@ namespace Client
         IPEndPoint ip;
         SocketManager client;
 
-        //Gửi nhận tin dạng byte
-        void AddMessage(string s)
-        {
-            lvMessage.Items.Add(new ListViewItem() { Text = s });
-            tbMessage.Clear();
-        }
-
         void SendMessage()
         {
             if (tbMessage.Text != string.Empty)
             {
-                client.Send(tbname + "-.-" + ":" + tbMessage.Text + "-.-chat");
+                client.Send(tbname + "-.-" + ": " + tbMessage.Text + "-.-chat");
             }
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
             SendMessage();
-            AddMessage(tbMessage.Text);
+            lvMessage.Items.Add(tbname + ": " + tbMessage.Text);
+            tbMessage.Clear();
         }        
     }
 }
