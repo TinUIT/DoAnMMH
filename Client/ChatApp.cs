@@ -40,13 +40,17 @@ namespace Client
             BinaryFormatter formatter = new BinaryFormatter();
             return formatter.Deserialize(stream);
         }
-
+        void AddMessage(string s)
+        {
+            lvMessage.Items.Add(new ListViewItem() { Text = s });
+            tbMessage.Clear();
+        }
 
         void SendMessage()
         {
             if (tbMessage.Text != string.Empty)
             {
-                client.Send(Serialize(tbName.Text + ":" + tbMessage.Text));
+                client.Send(Serialize("tbName.Text" + ":" + tbMessage.Text));
             }
         }
 
