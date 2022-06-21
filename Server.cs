@@ -80,7 +80,6 @@ namespace DoAnMMH
                     string receive = (string)Deserialize(data);
                     string[] arrListStr = receive.Split(new string[] { "-.-" }, StringSplitOptions.RemoveEmptyEntries);
                     SocketData login = new SocketData(arrListStr[0], arrListStr[1]);
-                    //MessageBox.Show(login.getPassword());
 
                     if(String.Compare(arrListStr[2], "login", true) == 0)
                     {
