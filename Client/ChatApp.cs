@@ -3,36 +3,43 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Client
 {
     public partial class ChatApp : Form
     {
-        public ChatApp()
+        public ChatApp(SocketManager socketManager, string name)
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            Connect();
+            client = socketManager;
+            tbname = name;
+            Thread thread = new Thread(Receive);
+            thread.IsBackground = true;
+            thread.Start();
         }
-
+        string tbname;
+        public void Receive()
+        {
+            try
+            {
+                while (true)
+                {
+                    string r = (string)client.Receive();
+                    AddMessage(r);
+                }
+            }
+            catch (Exception ex)
+            {
+                client.Close();
+            }
+        }
         IPEndPoint ip;
-        Socket client;
+        SocketManager client;
 
         //Gửi nhận tin dạng byte
-        byte[] Serialize(object obj)
-        {
-            MemoryStream stream = new MemoryStream();
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, obj);
-            return stream.ToArray();
-        }
-        object Deserialize(byte[] data)
-        {
-            MemoryStream stream = new MemoryStream(data);
-            BinaryFormatter formatter = new BinaryFormatter();
-            return formatter.Deserialize(stream);
-        }
         void AddMessage(string s)
         {
             lvMessage.Items.Add(new ListViewItem() { Text = s });
@@ -43,7 +50,7 @@ namespace Client
         {
             if (tbMessage.Text != string.Empty)
             {
-                client.Send(Serialize("tbName.Text" + ":" + tbMessage.Text));
+                client.Send(tbname + "-.-" + ":" + tbMessage.Text + "-.-chat");
             }
         }
 
@@ -51,52 +58,6 @@ namespace Client
         {
             SendMessage();
             AddMessage(tbMessage.Text);
-        }
-
-        void Connect()
-        {
-            //ip server
-            ip = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080);
-            client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
-            try
-            {
-                client.Connect(ip);
-            }
-            catch
-            {
-                MessageBox.Show("Không kết nối được tới server", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            Thread listen = new Thread(Receive);
-            listen.IsBackground = true;
-            listen.Start();
-        }
-
-        //Đóng kết nối hiện thời
-        void CloseClient()
-        {
-            client.Close();
-        }
-
-        //Nhận tin
-        void Receive()
-        {
-            try
-            {
-                while (true)
-                {
-                    byte[] data = new byte[1024 * 5000];// Khoảng cách nhận 5M byte
-                    client.Receive(data);
-
-                    string message = (string)Deserialize(data);
-                    AddMessage(message);
-                }
-            }
-            catch
-            {
-                Close();
-            }
-
-        }
+        }        
     }
 }

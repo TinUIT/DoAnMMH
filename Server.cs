@@ -81,25 +81,42 @@ namespace DoAnMMH
                     string[] arrListStr = receive.Split(new string[] { "-.-" }, StringSplitOptions.RemoveEmptyEntries);
                     SocketData login = new SocketData(arrListStr[0], arrListStr[1]);
 
-                    if(String.Compare(arrListStr[2], "login", true) == 0)
+                    switch(arrListStr[2])
                     {
-                        if (CheckLogin(login.getUsername(),login.getPassword()))
-                        {
-                            MessageBox.Show("Đã kết nối dtb");
-                            client.Send(Serialize("Đã đăng nhập thành công"));
-                        }
-                        else
-                        {
-                            MessageBox.Show("Kết nối dtb thất bại");
-                            client.Send(Serialize("Đăng nhập thất bại"));
-                        }
+                        case "login":
+                            if (CheckLogin(login.getUsername(), login.getPassword()))
+                            {
+                                client.Send(Serialize("Đã đăng nhập thành công"));
+                            }
+                            else
+                            {
+                                client.Send(Serialize("Đăng nhập thất bại"));
+                            }
+                            break;
+                        case "register":
+                            if (CheckRegister(login.getUsername(), login.getPassword()))
+                            {
+                                client.Send(Serialize("Đã đăng nhập thành công"));
+                            }
+                            else
+                            {
+                                client.Send(Serialize("Đăng nhập thất bại"));
+                            }
+                            break;
+                        case "chat":
+                            foreach (var item in clientList)
+                            {
+                                if (item != null && item != client)
+                                    item.Send(Serialize(arrListStr[1]));
+                            }
+                            break;
                     }
+
                 }
                 catch (Exception ex)
                 {
                     clientList.Remove(client);
                     client.Close();
-                    //MessageBox.Show(ex.ToString());
 
                 }
             }
@@ -188,7 +205,7 @@ namespace DoAnMMH
         //Hàm kiểm tra xem thông tin client đăng nhập đúng hay không
         public bool CheckLogin(string UserName, string Password)
         {
-            SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-QPN0QKO\SQLEXPRESS;Initial Catalog=User;Integrated Security=True");
+            SqlConnection connect = new SqlConnection(@"Data Source=DESKTOP-QPN0QKO\SQLEXPRESS;Initial Catalog=master;Integrated Security=True");
 
 
             string name = UserName;  //login.getUsername();

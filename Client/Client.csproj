@@ -77,7 +77,6 @@
     <Compile Include="Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
-    <Compile Include="SocketData.cs" />
     <Compile Include="SocketManager.cs" />
     <EmbeddedResource Include="ChatApp.resx">
       <DependentUpon>ChatApp.cs</DependentUpon>

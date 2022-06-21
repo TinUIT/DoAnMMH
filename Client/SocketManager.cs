@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    internal class SocketManager
+    public  class SocketManager
     {
         Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         public static string sIP = "127.0.0.1";
@@ -50,7 +50,7 @@ namespace Client
 
         public object Receive()
         {
-            byte[] receiveData = new byte[BUFFER*50];
+            byte[] receiveData = new byte[BUFFER*5000];
             client.Receive(receiveData);
 
             return DeserializeData(receiveData);

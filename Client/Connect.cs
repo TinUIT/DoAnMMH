@@ -31,9 +31,8 @@ namespace Client
                     socket.setIP(tbIP.Text);
                     if (socket.ConnectServer())
                     {
-                        Login login = new Login();
                         this.Hide();
-                        socket.Close();
+                        Login login = new Login(socket);
                         login.ShowDialog();
                         this.Close();
                     }

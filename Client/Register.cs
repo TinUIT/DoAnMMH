@@ -12,14 +12,40 @@ namespace Client
 {
     public partial class Register : Form
     {
-        public Register()
+        public Register(SocketManager socketM)
         {
             InitializeComponent();
+            socket = socketM;
         }
+        SocketManager socket = new SocketManager();
 
+        Crypto cryp = new Crypto();
         private void btRegister_Click(object sender, EventArgs e)
         {
+            if (tbPassword.Text == tbRetypePassword.Text)
+            {
+                if (tbPassword.Text != null && tbUserName.Text != null)
+                {
+                    socket.Send(tbUserName.Text + "-.-" + cryp.SHA256(tbPassword.Text) + "-.-register");
+                    string response = (string)socket.Receive();
 
+                    if (response == "Đã đăng nhập thành công")
+                    {
+                        this.Hide();
+                        ChatApp chatApp = new ChatApp(socket, tbUserName.Text);
+                        chatApp.ShowDialog();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show(response);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng nhập lại Password");
+                }
+            }
         }
 
         private void btExit_Click(object sender, EventArgs e)

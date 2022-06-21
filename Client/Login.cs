@@ -14,11 +14,11 @@ namespace Client
 {
     public partial class Login : Form
     {
-        public Login()
+        public Login(SocketManager socketManager)
         {
             InitializeComponent();
-
             CheckForIllegalCrossThreadCalls = false;
+            socket = socketManager;
 
         }
         SocketManager socket = new SocketManager();
@@ -29,15 +29,15 @@ namespace Client
         {
             if (tbPassword.Text != null && tbUserName.Text != null)
             {
-                socket.ConnectServer();
                 socket.Send(tbUserName.Text + "-.-" + cryp.SHA256(tbPassword.Text) + "-.-login");
                 string response = (string)socket.Receive();
-                //
+                
                 if(response=="Đã đăng nhập thành công")
                 {
                     this.Hide();
-                    ChatApp chatApp = new ChatApp();
+                    ChatApp chatApp = new ChatApp(socket, tbUserName.Text);
                     chatApp.ShowDialog();
+                    this.Close();
                 }    
                 else
                 {
@@ -72,5 +72,13 @@ namespace Client
         {
 
 ;       }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Register login = new Register(socket);
+            login.ShowDialog();
+            this.Close();
+        }
     }
 }
