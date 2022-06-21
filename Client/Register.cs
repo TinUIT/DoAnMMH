@@ -50,7 +50,21 @@ namespace Client
 
         private void btExit_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
 
+        private void cbShowPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbShowPassword.Checked == true)
+            {
+                tbPassword.UseSystemPasswordChar = false;
+                tbRetypePassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                tbPassword.UseSystemPasswordChar = true;
+                tbRetypePassword.UseSystemPasswordChar = true;
+            }
         }
     }
 }
