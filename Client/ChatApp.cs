@@ -11,6 +11,9 @@ namespace Client
     public partial class ChatApp : Form
     {
         string tbname;
+        string tbname;
+        Crypto crypto = new Crypto();
+        string key = "thisisasecretkeythisisasecretkey";
 
         public ChatApp(SocketManager socketManager, string name)
         {
@@ -47,7 +50,7 @@ namespace Client
         {
             if (tbMessage.Text != string.Empty)
             {
-                client.Send(tbname + "-.-" + ": " + tbMessage.Text + "-.-chat");
+                client.Send(tbname + "-.-" + ":" + crypto.EncryptAES(tbMessage.Text, key) + "-.-chat");
             }
         }
 
