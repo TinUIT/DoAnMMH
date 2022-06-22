@@ -11,7 +11,6 @@ namespace Client
     public partial class ChatApp : Form
     {
         string tbname;
-        string tbname;
         Crypto crypto = new Crypto();
         string key = "thisisasecretkeythisisasecretkey";
 
