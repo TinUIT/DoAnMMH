@@ -32,8 +32,15 @@ namespace Client
             {
                 while (true)
                 {
-                    string r = (string)client.Receive();
-                    lvMessage.Items.Add("\t\t\t" + r);
+                    string receive = (string)client.Receive();
+                    string[] arrListStr = receive.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+                    string check = crypto.HMAC(key, arrListStr[1]);
+                    if (arrListStr[2] != check)
+                    {
+                        MessageBox.Show("tin nhắn đã bị sửa");
+                    }
+                    
+                    lvMessage.Items.Add("\t\t\t" + arrListStr[0] + ": " + crypto.DecryptAES(arrListStr[1], key));
                     tbMessage.Clear();
                 }
             }
@@ -49,7 +56,9 @@ namespace Client
         {
             if (tbMessage.Text != string.Empty)
             {
-                client.Send(tbname + "-.-" + ":" + crypto.EncryptAES(tbMessage.Text, key) + "-.-chat");
+                string aes = crypto.EncryptAES(tbMessage.Text, key);
+                string hmac = crypto.HMAC(key, aes);
+                client.Send(tbname + "-.-" + ":" + aes  + "-.-chat" + "-.-" + hmac);
             }
         }
 
